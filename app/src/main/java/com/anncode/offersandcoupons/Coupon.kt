@@ -25,8 +25,8 @@ class Coupon(couponJson: JsonObject?) : Serializable {
             id                  = couponJson!!.get(ID).asString
             image_url           = couponJson!!.get(IMAGE_URL).asString
             title               = couponJson!!.get(TITLE).asString
-            descriptionShort    = chunkWords(couponJson!!.get(DESCRIPTION_SHORT).asString, ' ', 5)
-            category            = chunkWords(couponJson!!.get(CATEGORY).asString, ',', 1)
+            descriptionShort    = ""
+            category            = ""
             description         = couponJson!!.get(DESCRIPTION).asString
             offer               = couponJson!!.get(OFFER).asString
             website             = couponJson!!.get(WEBSITE).asString
@@ -72,7 +72,11 @@ class Coupon(couponJson: JsonObject?) : Serializable {
         var newString: String = ""
 
         for (i in 0..quantity){
-            newString += words.get(i) + " "
+            newString += try {
+                words.get(i) + " "
+            }catch (e: Exception){
+                "vacio"
+            }
         }
 
         return newString
